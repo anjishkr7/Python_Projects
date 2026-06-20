@@ -1,5 +1,6 @@
 # CRUD operation project :-
 from pathlib import Path
+import os
 def readFileAndFolder():
     path=Path('')
     items=list(path.rglob('*'))
@@ -11,7 +12,7 @@ def createFile():
     readFileAndFolder()
     name=input("please tell your file name:- ")
     p=Path(name)
-    if not p.exists() and p.is_file():
+    if not p.exists() :
       with open(p,"w") as fs:
         data=input("What u want to write in this file: ")
         fs.write(data)
@@ -59,6 +60,18 @@ def updateFile():
           fs.write(" "+data)
   except Exception as err:
     print(f"An error occured as {err}")
+def deleteFile():
+  try :
+    readFileAndFolder()
+    name =input("Enter the name of the file which one you want to delete: ")
+    p=Path(name)
+    if p.exists() and p.is_file():
+      os.remove(p)
+      print("File removed succesfully")
+    else:
+      print("No such file exists")
+  except Exception as err:
+    print(f"An error occured as {err}")
 print("Press 1 for creating a file")
 print("Press 2 for reading a file")
 print("Press 3 for updating a file")
@@ -73,3 +86,5 @@ if check==2:
 
 if check==3:
   updateFile()
+if check==4:
+  deleteFile()
